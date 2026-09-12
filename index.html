@@ -246,15 +246,103 @@ function leadenqSendAnswer() {
   if (!answer) return;
 
   const messages = document.getElementById("leadenq-chat-messages");
+  const inputArea = document.getElementById("leadenq-chat-input-area");
 
   messages.innerHTML += `
     <div class="leadenq-message user">${answer}</div>
     <div class="leadenq-message bot">
-      Thanks! 👍
+      Thanks! How many bedrooms are you looking for?
     </div>
   `;
 
+  inputArea.style.display = "none";
+
+  messages.insertAdjacentHTML("beforeend", `
+    <div id="leadenq-bedroom-options" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+      <button onclick="leadenqBedroom('1')">1</button>
+      <button onclick="leadenqBedroom('2')">2</button>
+      <button onclick="leadenqBedroom('3')">3</button>
+      <button onclick="leadenqBedroom('4')">4</button>
+      <button onclick="leadenqBedroom('5+')">5+</button>
+    </div>
+  `);
+
   input.value = "";
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function leadenqBedroom(answer) {
+  const messages = document.getElementById("leadenq-chat-messages");
+  const options = document.getElementById("leadenq-bedroom-options");
+
+  options.remove();
+
+  messages.innerHTML += `
+    <div class="leadenq-message user">${answer}</div>
+    <div class="leadenq-message bot">
+      What type of property are you looking for?
+    </div>
+  `;
+
+  messages.insertAdjacentHTML("beforeend", `
+    <div id="leadenq-property-options" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+      <button onclick="leadenqProperty('House')">House</button>
+      <button onclick="leadenqProperty('Flat / Apartment')">Flat / Apartment</button>
+      <button onclick="leadenqProperty('Bungalow')">Bungalow</button>
+      <button onclick="leadenqProperty('Other')">Other</button>
+    </div>
+  `);
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function leadenqProperty(answer) {
+  const messages = document.getElementById("leadenq-chat-messages");
+  const options = document.getElementById("leadenq-property-options");
+
+  options.remove();
+
+  messages.innerHTML += `
+    <div class="leadenq-message user">${answer}</div>
+    <div class="leadenq-message bot">
+      Do you have a mortgage in place?
+    </div>
+  `;
+
+  messages.insertAdjacentHTML("beforeend", `
+    <div id="leadenq-mortgage-options" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+      <button onclick="leadenqMortgage('Yes')">Yes</button>
+      <button onclick="leadenqMortgage('No')">No</button>
+      <button onclick="leadenqMortgage('Not sure')">Not sure</button>
+    </div>
+  `);
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function leadenqMortgage(answer) {
+  const messages = document.getElementById("leadenq-chat-messages");
+  const options = document.getElementById("leadenq-mortgage-options");
+
+  options.remove();
+
+  messages.innerHTML += `
+    <div class="leadenq-message user">${answer}</div>
+    <div class="leadenq-message bot">
+      When are you looking to move?
+    </div>
+  `;
+
+  messages.insertAdjacentHTML("beforeend", `
+    <div id="leadenq-move-options" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+      <button onclick="leadenqMove('As soon as possible')">As soon as possible</button>
+      <button onclick="leadenqMove('Within 1–3 months')">Within 1–3 months</button>
+      <button onclick="leadenqMove('Within 3–6 months')">Within 3–6 months</button>
+      <button onclick="leadenqMove('6+ months')">6+ months</button>
+      <button onclick="leadenqMove('Not sure')">Not sure</button>
+    </div>
+  `);
+
   messages.scrollTop = messages.scrollHeight;
 }
 </script>
