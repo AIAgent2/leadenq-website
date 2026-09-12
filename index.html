@@ -217,16 +217,17 @@ leadEnqClose.onclick = function() {
 function leadenqAnswer(answer) {
   const messages = document.getElementById("leadenq-chat-messages");
   const options = document.getElementById("leadenq-chat-options");
-  const inputArea = document.getElementById("leadenq-chat-input-area");
 
   options.remove();
 
-  messages.innerHTML += `
+  messages.insertAdjacentHTML("beforeend", `
     <div class="leadenq-message user">${answer}</div>
     <div class="leadenq-message bot">
       Great! What area are you looking to ${answer.toLowerCase()} in?
     </div>
-  `;
+  `);
+
+  const inputArea = document.getElementById("leadenq-chat-input-area");
 
   inputArea.style.display = "flex";
   inputArea.style.gap = "8px";
