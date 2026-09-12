@@ -88,9 +88,24 @@ footer{border-top:1px solid #e5e7eb;padding:28px 0;color:#6b7280;font-size:14px}
       </div>
 
       <div id="leadenq-chat-options">
-        <button onclick="leadenqAnswer('Buy')">Buy</button>
-        <button onclick="leadenqAnswer('Rent')">Rent</button>
-      </div>
+  <button onclick="leadenqAnswer('Buy')">Buy</button>
+  <button onclick="leadenqAnswer('Rent')">Rent</button>
+</div>
+
+<div id="leadenq-chat-input-area" style="display:none; margin-top:12px;">
+  <input
+    id="leadenq-chat-input"
+    type="text"
+    placeholder="Type your answer..."
+    style="width:70%; padding:10px; border:1px solid #ddd; border-radius:8px;"
+  >
+  <button
+    onclick="leadenqSendAnswer()"
+    style="padding:10px 12px; border:none; border-radius:8px; cursor:pointer;"
+  >
+    Send
+      </button>
+     </div>
     </div>
   </div>
 </div>
@@ -202,6 +217,7 @@ leadEnqClose.onclick = function() {
 function leadenqAnswer(answer) {
   const messages = document.getElementById("leadenq-chat-messages");
   const options = document.getElementById("leadenq-chat-options");
+  const inputArea = document.getElementById("leadenq-chat-input-area");
 
   options.remove();
 
@@ -212,6 +228,30 @@ function leadenqAnswer(answer) {
     </div>
   `;
 
+  inputArea.style.display = "flex";
+  inputArea.style.gap = "8px";
+
+  messages.scrollTop = messages.scrollHeight;
+
+  document.getElementById("leadenq-chat-input").focus();
+}
+
+function leadenqSendAnswer() {
+  const input = document.getElementById("leadenq-chat-input");
+  const answer = input.value.trim();
+
+  if (!answer) return;
+
+  const messages = document.getElementById("leadenq-chat-messages");
+
+  messages.innerHTML += `
+    <div class="leadenq-message user">${answer}</div>
+    <div class="leadenq-message bot">
+      Thanks! 👍
+    </div>
+  `;
+
+  input.value = "";
   messages.scrollTop = messages.scrollHeight;
 }
 </script>
