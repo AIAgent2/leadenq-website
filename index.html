@@ -69,3 +69,149 @@ footer{border-top:1px solid #e5e7eb;padding:28px 0;color:#6b7280;font-size:14px}
 <footer><div class="container footer-inner"><div><strong>LeadEnq</strong> — AI-powered enquiry management for estate agencies.</div><div>© 2026 LeadEnq. All rights reserved.</div></div></footer>
 </body>
 </html>
+<!-- LeadEnq Chatbot V1 -->
+<div id="leadenq-chatbot">
+  <button id="leadenq-chat-toggle">💬 Enquire about a property</button>
+
+  <div id="leadenq-chat-window">
+    <div id="leadenq-chat-header">
+      <strong>LeadEnq Property Assistant</strong>
+      <button id="leadenq-chat-close">×</button>
+    </div>
+
+    <div id="leadenq-chat-messages">
+      <div class="leadenq-message bot">
+        Hi! 👋 I’m the LeadEnq property assistant. I can help you with your property enquiry.
+      </div>
+      <div class="leadenq-message bot">
+        Are you looking to buy or rent?
+      </div>
+
+      <div id="leadenq-chat-options">
+        <button onclick="leadenqAnswer('Buy')">Buy</button>
+        <button onclick="leadenqAnswer('Rent')">Rent</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#leadenq-chatbot {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+}
+
+#leadenq-chat-toggle {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 20px;
+  background: #2563eb;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0,0,0,.18);
+}
+
+#leadenq-chat-window {
+  display: none;
+  width: 350px;
+  max-width: calc(100vw - 40px);
+  height: 500px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 15px 45px rgba(0,0,0,.2);
+  overflow: hidden;
+}
+
+#leadenq-chat-header {
+  background: #111827;
+  color: white;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#leadenq-chat-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#leadenq-chat-messages {
+  padding: 16px;
+  height: 420px;
+  overflow-y: auto;
+}
+
+.leadenq-message {
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  max-width: 85%;
+  line-height: 1.4;
+}
+
+.leadenq-message.bot {
+  background: #f3f4f6;
+}
+
+.leadenq-message.user {
+  background: #2563eb;
+  color: white;
+  margin-left: auto;
+}
+
+#leadenq-chat-options {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+#leadenq-chat-options button {
+  padding: 10px 18px;
+  border: 1px solid #2563eb;
+  background: white;
+  color: #2563eb;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+</style>
+
+<script>
+const leadEnqToggle = document.getElementById("leadenq-chat-toggle");
+const leadEnqWindow = document.getElementById("leadenq-chat-window");
+const leadEnqClose = document.getElementById("leadenq-chat-close");
+
+leadEnqToggle.onclick = function() {
+  leadEnqWindow.style.display = "block";
+  leadEnqToggle.style.display = "none";
+};
+
+leadEnqClose.onclick = function() {
+  leadEnqWindow.style.display = "none";
+  leadEnqToggle.style.display = "block";
+};
+
+function leadenqAnswer(answer) {
+  const messages = document.getElementById("leadenq-chat-messages");
+  const options = document.getElementById("leadenq-chat-options");
+
+  options.remove();
+
+  messages.innerHTML += `
+    <div class="leadenq-message user">${answer}</div>
+    <div class="leadenq-message bot">
+      Great! What area are you looking to ${answer.toLowerCase()} in?
+    </div>
+  `;
+
+  messages.scrollTop = messages.scrollHeight;
+}
+</script>
