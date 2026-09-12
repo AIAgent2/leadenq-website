@@ -255,7 +255,7 @@ function leadenqSendAnswer() {
     </div>
   `;
 
-  inputArea.style.display = "none";
+  inputArea.style.setProperty("display", "none", "important");
 
   messages.insertAdjacentHTML("beforeend", `
     <div id="leadenq-bedroom-options" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
