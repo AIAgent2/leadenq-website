@@ -247,31 +247,50 @@ function leadenqSendAnswer() {
   if (!answer) return;
 
   const messages = document.getElementById("leadenq-chat-messages");
- 
- messages.insertAdjacentHTML("beforeend", `
-  <div class="leadenq-message user">${answer}</div>
-  <div class="leadenq-message bot">
-    Thanks! How many bedrooms are you looking for?
-  </div>
-`);
-  
-const inputArea = document.getElementById("leadenq-chat-input-area");
-  inputArea.style.setProperty("display", "none", "important");
-  
-  inputArea.style.setProperty("display", "none", "important");
+  const inputArea = document.getElementById("leadenq-chat-input-area");
+
+  const step = input.dataset.step || "location";
+
+  let nextQuestion = "";
+
+  if (step === "location") {
+    nextQuestion = "What's your minimum budget?";
+    input.dataset.step = "min-budget";
+  } else if (step === "min-budget") {
+    nextQuestion = "What's your maximum budget?";
+    input.dataset.step = "max-budget";
+  } else if (step === "max-budget") {
+    nextQuestion = "Thanks! How many bedrooms are you looking for?";
+    input.dataset.step = "bedrooms";
+  }
 
   messages.insertAdjacentHTML("beforeend", `
-    <div id="leadenq-bedroom-options" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
-      <button onclick="leadenqBedroom('1')">1</button>
-      <button onclick="leadenqBedroom('2')">2</button>
-      <button onclick="leadenqBedroom('3')">3</button>
-      <button onclick="leadenqBedroom('4')">4</button>
-      <button onclick="leadenqBedroom('5+')">5+</button>
+    <div class="leadenq-message user">${answer}</div>
+    <div class="leadenq-message bot">
+      ${nextQuestion}
     </div>
   `);
 
+  if (step === "max-budget") {
+    inputArea.style.setProperty("display", "none", "important");
+
+    messages.insertAdjacentHTML("beforeend", `
+      <div id="leadenq-bedroom-options" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+        <button onclick="leadenqBedroom('1')">1</button>
+        <button onclick="leadenqBedroom('2')">2</button>
+        <button onclick="leadenqBedroom('3')">3</button>
+        <button onclick="leadenqBedroom('4')">4</button>
+        <button onclick="leadenqBedroom('5+')">5+</button>
+      </div>
+    `);
+  }
+
   input.value = "";
   messages.scrollTop = messages.scrollHeight;
+
+  if (step !== "max-budget") {
+    input.focus();
+  }
 }
 
 function leadenqBedroom(answer) {
