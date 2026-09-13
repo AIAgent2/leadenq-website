@@ -247,11 +247,12 @@ function leadenqSendAnswer() {
 
   const messages = document.getElementById("leadenq-chat-messages");
  
-  messages.insertAdjacentHTML("beforeend",
-    <div class="leadenq-message user">${answer}</div>
-    <div class="leadenq-message bot">
-      Thanks! How many bedrooms are you looking for?
-    </div>
+ messages.insertAdjacentHTML("beforeend", `
+  <div class="leadenq-message user">${answer}</div>
+  <div class="leadenq-message bot">
+    Thanks! How many bedrooms are you looking for?
+  </div>
+`);
   `;
 const inputArea = document.getElementById("leadenq-chat-input-area");
   inputArea.style.setProperty("display", "none", "important");
