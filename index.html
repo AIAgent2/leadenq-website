@@ -348,4 +348,19 @@ function leadenqMortgage(answer) {
 
   messages.scrollTop = messages.scrollHeight;
 }
+  function leadenqMove(answer) {
+  const messages = document.getElementById("leadenq-chat-messages");
+  const options = document.getElementById("leadenq-move-options");
+
+  options.remove();
+
+  messages.insertAdjacentHTML("beforeend", `
+    <div class="leadenq-message user">${answer}</div>
+    <div class="leadenq-message bot">
+      What would you like to do next?
+    </div>
+  `);
+
+  messages.scrollTop = messages.scrollHeight;
+}
 </script>
