@@ -391,6 +391,26 @@ function leadenqMortgage(answer) {
       What would you like to do next?
     </div>
   `);
+messages.insertAdjacentHTML("beforeend", `
+  <div id="leadenq-action-options" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+    <button onclick="leadenqAction('Arrange a viewing')">Arrange a viewing</button>
+    <button onclick="leadenqAction('Request more information')">Request more information</button>
+    <button onclick="leadenqAction('Speak to an agent')">Speak to an agent</button>
+  </div>
+`);
+  messages.scrollTop = messages.scrollHeight;
+function leadenqAction(answer) {
+  const messages = document.getElementById("leadenq-chat-messages");
+  const options = document.getElementById("leadenq-action-options");
+
+  options.remove();
+
+  messages.insertAdjacentHTML("beforeend", `
+    <div class="leadenq-message user">${answer}</div>
+    <div class="leadenq-message bot">
+      Great. Finally, what is your name?
+    </div>
+  `);
 
   messages.scrollTop = messages.scrollHeight;
 }
