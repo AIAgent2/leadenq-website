@@ -272,9 +272,15 @@ function leadenqSendAnswer() {
     nextQuestion = "What's your maximum budget?";
     input.dataset.step = "max-budget";
   } else if (step === "max-budget") {
-    nextQuestion = "Thanks! How many bedrooms are you looking for?";
-    input.dataset.step = "bedrooms";
-  }
+  nextQuestion = "Thanks! How many bedrooms are you looking for?";
+  input.dataset.step = "bedrooms";
+ } else if (step === "name") {
+  nextQuestion = "What's your email address?";
+  input.dataset.step = "email";
+  } else if (step === "email") {
+  nextQuestion = "What's your phone number?";
+  input.dataset.step = "phone";
+}
 
   messages.insertAdjacentHTML("beforeend", `
     <div class="leadenq-message user">${answer}</div>
@@ -416,6 +422,7 @@ function leadenqAction(answer) {
   messages.scrollTop = messages.scrollHeight;
   const inputArea = document.getElementById("leadenq-chat-input-area");
 inputArea.style.display = "flex";
+document.getElementById("leadenq-chat-input").dataset.step = "name";
 inputArea.style.gap = "8px";
 }
 </script>
