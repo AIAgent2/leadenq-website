@@ -452,7 +452,12 @@ inputArea.style.gap = "8px";
 }
 
 history.scrollRestoration = "manual";
-window.scrollTo(0, 0);
+
+window.addEventListener("load", function() {
+  setTimeout(function() {
+    window.scrollTo(0, 0);
+  }, 100);
+});
 </script>
 </body>
 </html>
