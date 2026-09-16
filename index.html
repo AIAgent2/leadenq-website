@@ -67,8 +67,7 @@ footer{border-top:1px solid #e5e7eb;padding:28px 0;color:#6b7280;font-size:14px}
 <section id="contact" class="cta"><div class="container"><h2>Stop letting good enquiries go cold.</h2><p>See how LeadEnq can help your estate agency qualify enquiries, prioritise and stay on top of follow-ups.</p><a href="mailto:leadenq25@gmail.com" class="primary-button">Book a Demo</a></div></section>
 </main>
 <footer><div class="container footer-inner"><div><strong>LeadEnq</strong> — AI-powered enquiry management for estate agencies.</div><div>© 2026 LeadEnq. All rights reserved.</div></div></footer>
-</body>
-</html>
+
 <!-- LeadEnq Chatbot V1 -->
 <div id="leadenq-chatbot">
  <button id="leadenq-chat-toggle">💬 Chat with us</button>
@@ -217,7 +216,7 @@ const leadEnqWindow = document.getElementById("leadenq-chat-window");
 const leadEnqClose = document.getElementById("leadenq-chat-close");
 
 leadEnqToggle.onclick = function() {
-  leadEnqWindow.style.display = "block";
+  leadEnqWindow.style.display = "flex";
   leadEnqToggle.style.display = "none";
 };
 
@@ -452,3 +451,5 @@ inputArea.style.gap = "8px";
   messages.scrollTop = messages.scrollHeight;
 }
 </script>
+</body>
+</html>
