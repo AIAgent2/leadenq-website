@@ -280,6 +280,9 @@ function leadenqSendAnswer() {
   } else if (step === "email") {
   nextQuestion = "What's your phone number?";
   input.dataset.step = "phone";
+    } else if (step === "phone") {
+  nextQuestion = "Thanks! That’s everything I need. 👌 I’ll pass your enquiry to the team, and someone will be in touch shortly.";
+  input.dataset.step = "complete";
 }
 
   messages.insertAdjacentHTML("beforeend", `
@@ -306,8 +309,19 @@ function leadenqSendAnswer() {
   input.value = "";
   messages.scrollTop = messages.scrollHeight;
 
-  if (step !== "max-budget") {
-    input.focus();
+  if (step === "phone") {
+  inputArea.style.setProperty("display", "none", "important");
+
+  messages.insertAdjacentHTML("beforeend", `
+    <button
+      onclick="leadenqSubmitEnquiry()"
+      style="margin-top:12px; padding:12px 18px; border:none; border-radius:999px; background:#2563eb; color:white; font-weight:600; cursor:pointer;"
+    >
+      Submit enquiry
+    </button>
+  `);
+} else if (step !== "max-budget") {
+  input.focus();
   }
 }
 
@@ -424,5 +438,17 @@ function leadenqAction(answer) {
 inputArea.style.display = "flex";
 document.getElementById("leadenq-chat-input").dataset.step = "name";
 inputArea.style.gap = "8px";
+}
+  
+  function leadenqSubmitEnquiry() {
+  const messages = document.getElementById("leadenq-chat-messages");
+
+  messages.insertAdjacentHTML("beforeend", `
+    <div class="leadenq-message bot">
+      Thanks! That’s everything I need. 👌 Your enquiry has been received.
+    </div>
+  `);
+
+  messages.scrollTop = messages.scrollHeight;
 }
 </script>
