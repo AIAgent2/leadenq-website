@@ -442,13 +442,56 @@ inputArea.style.gap = "8px";
   function leadenqSubmitEnquiry() {
   const messages = document.getElementById("leadenq-chat-messages");
 
-  messages.insertAdjacentHTML("beforeend", `
-    <div class="leadenq-message bot">
-      Enquiry submitted successfully. ✓ Someone from the team will be in touch shortly.
-    </div>
-  `);
+  const userAnswers = Array.from(
+    messages.querySelectorAll(".leadenq-message.user")
+  ).map(el => el.textContent.trim());
 
-  messages.scrollTop = messages.scrollHeight;
+  const enquiry = {
+    buyer_or_renter: userAnswers[0] || "",
+    location: userAnswers[1] || "",
+    minimum_budget: userAnswers[2] || "",
+    maximum_budget: userAnswers[3] || "",
+    bedrooms: userAnswers[4] || "",
+    property_type: userAnswers[5] || "",
+    mortgage_status: userAnswers[6] || "",
+    move_date: userAnswers[7] || "",
+    requested_action: userAnswers[8] || "",
+    customer_name: userAnswers[9] || "",
+    email: userAnswers[10] || "",
+    phone: userAnswers[11] || ""
+  };
+
+  fetch("https://estateagentai.app.n8n.cloud/webhook/leadenq-chatbot", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(enquiry)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Webhook request failed");
+    }
+
+    messages.insertAdjacentHTML("beforeend", `
+      <div class="leadenq-message bot">
+        Enquiry submitted successfully. ✓ Someone from the team will be in touch shortly.
+      </div>
+    `);
+
+    messages.scrollTop = messages.scrollHeight;
+  })
+  .catch(error => {
+    console.error("LeadEnq webhook error:", error);
+
+    messages.insertAdjacentHTML("beforeend", `
+      <div class="leadenq-message bot">
+        Sorry, something went wrong while submitting your enquiry. Please try again.
+      </div>
+    `);
+
+    messages.scrollTop = messages.scrollHeight;
+  });
 }
 
 history.scrollRestoration = "manual";
